@@ -1,0 +1,109 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>КАТАЛОГ</title>
+<title>КАТАЛОГ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<style>
+    
+      img {
+        float: left;
+        
+    }
+    .box {
+        background: #FFD173; 
+        border:1px solid white;
+        overflow: hidden;
+    }
+    h3 {
+        color: #FFD173;
+    }
+    .scroll-up {
+    width: 130px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #fcfcfc;
+    color: #aaa;
+    font-size: 13px;
+    text-align: center;
+    padding: 15px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: background .2s ease;
+    display: none;
+}
+
+.scroll-up:hover {
+    background-color: #eeeeee;
+    color: #777777;
+}
+ 
+    </style>
+</head>
+<body>
+<table width="800px" height="750px" cellpadding="0" cellspacing="0" border="0" align="center">
+    <tr>
+        <td colspan="2" height="60px" valign="top">
+        <!--ЛОГО-->
+     <div class="logo">
+                    <a href="index.html"><img title="Досуг для молодежи" alt="Досуг для молодежи г. Казань"  src="images/logo.png"></a>
+                </div>
+        <!--ЛОГО-->
+        </td>
+    </tr>
+    <tr>
+        <td valign="top" align="center"><br>
+           <!--ТЕКСТ-->
+            <div class="div_news">
+                <p class="title" align="center">Добро пожаловать!</p>
+                <p>Вы попали на страницу каталога. Здесь Вы сможете просмотреть все лучшие места в городе Казань. Если при просмотре вы заметили ошибку или неточность в текст, то можете нажать на кнопку «Редактировать», которая прикреплена к каждой публикации.
+Или вы наоборот хотите добавить новое место, которого у нас еще нет в каталоге? Тогда вы можете нажать на кнопку «Добавить» ниже.
+</p>
+               
+                <p align="right"><a href="add.php">Добавить</a></p>
+            </div>
+            <br /><br />
+<?php
+
+        include_once('db.php');
+        $result = mysql_query(" SELECT id,title,text,date,author,img
+                         FROM news 
+                         ORDER BY id DESC")or die(mysql_error());
+
+        mysql_close();
+
+        while ($row = mysql_fetch_array($result))
+{?> 
+                <div class="box">
+                <h1><?php  echo $row ['title']?></h1>
+                <img src="<?php  echo $row ['img']?>" class="image" alt="">             
+                <p class="text"><?php  echo $row ['text']?></p><br />
+                <h5>Автор публикации: <?php  echo $row ['author']?> | <?php  echo $row ['date']?> </h5>
+                <a href="edit.php?id=<?php  echo $row ['id']?>">Редактировать</a> |
+                <a href="delete.php?id=<?php  echo $row ['id']?>">Удалить</a>
+                </div> 
+                <br />
+              
+<?php }?>
+             
+        <!--ТЕКСТ-->
+        </td>
+        <td width="200px" valign="top"><br>
+        <!--МЕНЮ-->
+        <h3 align="center" >МЕНЮ</h3>   
+        <div class="div_menu"><a class="menu_link" href="index.html">ГЛАВНАЯ</a></div>
+        <div class="div_menu"><a class="menu_link" href="контакты.html">КОНТАКТЫ</a></div>
+        <div class="div_menu"><a class="menu_link" href="о-нас.html">О НАС</a></div>
+        <div class="div_menu"><a class="menu_link" href="catalog.php">КАТАЛОГ</a></div>
+        <!--МЕНЮ-->
+        </td>
+    </tr>
+</table>
+</body>
+</html>
